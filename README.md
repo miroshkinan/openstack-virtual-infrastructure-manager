@@ -1,8 +1,8 @@
-# OpenStack Virtual Infrastructure Manager
+# OpenStack Infrastructure Manager
 
-## Virtual Infrastructure Configuration
+## Infrastructure Configuration
 
-Virtual infrastructure configuration is stored in a file of yaml format.
+Virtual infrastructure configuration is stored in a YAML-file.
 Default name for the configuration is **config.yml**.
 In case of another name is used, it has to be specified with the "--config" argument:
 
@@ -14,12 +14,12 @@ The configuration file contains three root sections:
 2. networks
 3. servers
 
-####Parameters
+### Parameters
 
 Common infrastructure parameters are stored in the optional **"parameters"** root element.
 The next children elements are supported:
 
-##### 1. dns_nameservers
+#### 1. dns_nameservers
 
 Optional list of DNS servers hostnames or IP addresses.
 
@@ -31,7 +31,7 @@ Example:
             [- dns_hostname2|dns_ip_address2]
             [- ...]
 
-##### 2. users
+#### 2. users
 
 Optional dictionary of default user names for different OS images.
 
@@ -43,16 +43,16 @@ Example:
             [image_name: user_name]
             [...: ...]
 
-#### Networks
+### Networks
 
 To store networks description a **"networks"** root element can be used.
 It is a list of dictionaries of the next structure:
 
-##### 1. name
+#### 1. name
 
 A unique name of a network. Type: _string_. 
 
-##### 2. cidr
+#### 2. cidr
 
 An IPv4 Classless Inter-Domain Routing (CIDR) of the network in the next format: `x.x.x.x/y`.
 Type: _string_. 
@@ -67,27 +67,27 @@ An example of a minimal possible network configuration:
         - name: my_network
           cidr: 10.0.0.0/24
 
-#### Servers
+### Servers
 
 For storing servers configuration a **"servers"** root element is used.
 It is a list of dictionaries of the next structure:
 
-##### 1. name
+#### 1. name
 
 A unique name of a server. Type: _string_. 
 
-##### 2. image
+#### 2. image
 
 An image type to be used for the server creation. Type: _string_.
 A supported values for "image" parameter can be obtained with `openstack image list`.
 
-##### 3. flavor
+#### 3. flavor
 
 A flavor type to be used for the server creation. Type: _string_.
 The flavor value encodes the number of VCPU and amount of RAM.
 A supported values of "flavor" parameter can be obtained with `openstack flavor list`.
 
-##### 4. networks
+#### 4. networks
 
 A list of server's network connections. Every connection is a dictionary with mandatory
 **"name"** and optional **"ipv4"** parameters.
@@ -97,7 +97,7 @@ Network name has to match one of the "networks" elements, described above. Type:
 Network IPv4 address has to fit the corresponding network cidr. Type: _string_. 
         
         
-##### 5. keypair
+#### 5. keypair
 
 A name of the ssh keypair, that is used for connection to the server. Type: _string_. 
 
@@ -110,7 +110,7 @@ the public ssh key will be generated from the existing private one and then uplo
 3. The ssh key is absent both in OpenStack and in user's ssh directory **-->**
 a new keypair will be generated.
 
-##### 6. init-script
+#### 6. init-script
 
 To perform any post-installation steps during the first boot of a created server a user's init script can be used.
 The script should have a regular syntax of bash, python or any other interpreter,
@@ -135,7 +135,6 @@ An example of possible server configuration:
             ipv4: 10.0.0.5
         keypair: my_new_ssh_key
         init-script: /home/johndoe/openstack/init.sh
-
 
 ## OpenStack authorization
 
