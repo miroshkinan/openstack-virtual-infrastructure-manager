@@ -1,0 +1,49 @@
+parameters:
+  dns_nameservers:
+    - 8.8.4.4
+    - 8.8.8.8
+  users:
+    Ubuntu 20.04: admin
+    Ubuntu 22.04: ubuntuadmin
+
+networks:
+  - name: local_data_plane
+    description: "A local data plane network"
+    cidr: 10.0.0.0/24
+  - name: local_control_plane
+    description: "A local control plane network"
+    cidr: 10.1.0.0/24
+
+servers:
+  - name: client1
+    image: "Ubuntu 20.04"
+    flavor: m1.medium
+    networks:
+      - name: local_data_plane
+        ipv4: 10.0.0.2
+      - name: local_control_plane
+        ipv4: 10.1.0.2
+    keypair: client1_ssh_keypair
+    init-script: init.sh
+
+  - name: client2
+    image: "Ubuntu 22.04"
+    flavor: m1.medium
+    networks:
+      - name: local_data_plane
+        ipv4: 10.0.0.3
+      - name: local_control_plane
+        ipv4: 10.1.0.3
+    keypair: client2_ssh_keypair    
+    init-script: init.sh
+
+  - name: server
+    image: "Ubuntu 22.04"
+    flavor: m1.medium
+    networks:
+      - name: local_data_plane
+        ipv4: 10.0.0.10
+      - name: local_control_plane
+        ipv4: 10.1.0.10
+    keypair: server_ssh_keypair    
+
