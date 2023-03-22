@@ -1,4 +1,4 @@
-# OpenStack Infrastructure Manager
+# OpenStack Virtual Infrastructure Manager
 
 ## Infrastructure Configuration
 
